@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare } from "lucide-react";
+import { Link } from "react-router-dom";
+import AuthImagePattern from "../components/AuthImagePattern";
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -64,7 +66,10 @@ const LoginPage = () => {
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
+                    setFormData({
+                      ...formData,
+                      password: e.target.value,
+                    })
                   }
                 />
                 <button
@@ -79,9 +84,38 @@ const LoginPage = () => {
                 </button>
               </div>
             </div>
+            <button
+              type="submit"
+              className="btn btn-primary w-full"
+              disabled={isLoggingIn}>
+              {isLoggingIn ? (
+                <>
+                  <Loader2 className="size-5 animate-spin" />
+                  Loading...
+                </>
+              ) : (
+                "Sign in"
+              )}
+            </button>
           </form>
+          <div className="text-center">
+            <p className="text-base-content/60">
+              Don't have an account?
+              <Link to={"/signup"} className="link link-primary ml-1">
+                Create account
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Right side Image pattern */}
+      <AuthImagePattern
+        title={"Welcome back"}
+        subtitle={
+          "Sign in to continue your conversations and catch up with your messages"
+        }
+      />
     </div>
   );
 };

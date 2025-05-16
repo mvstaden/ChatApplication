@@ -32,6 +32,8 @@ export const signUp = async (req, res) => {
       generateToken(newUser._id, res);
       await newUser.save();
       return res.status(200).json({ message: "User created", user: newUser });
+    } else {
+      return res.status(400).json({ message: "Invalid user data" });
     }
   } catch (error) {
     console.log("Error signing up", error.message);

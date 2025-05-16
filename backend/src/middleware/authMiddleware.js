@@ -3,7 +3,7 @@ import User from "../models/userModel.js";
 
 export const protectRoute = async (req, res, next) => {
   try {
-    const token = res.cookies.auth_token;
+    const token = req.cookies.auth_token;
     if (!token) {
       return res
         .status(401)
@@ -19,6 +19,7 @@ export const protectRoute = async (req, res, next) => {
     }
     req.userId = user._id;
     req.user = user;
+    next();
   } catch (error) {
     console.log("Error authenticating user", error.message);
     return res.status(500).json({ message: "Server error" });
