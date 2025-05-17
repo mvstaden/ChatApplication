@@ -14,7 +14,7 @@ export const signUp = async (req, res) => {
         .status(400)
         .json({ message: "Password must be at least 6 characters" });
     }
-    const user = new User.findOne({ email });
+    const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ message: "Email already exists" });
     }
@@ -37,7 +37,7 @@ export const signUp = async (req, res) => {
     }
   } catch (error) {
     console.log("Error signing up", error.message);
-    return res.satus(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 };
 export const login = async (req, res) => {
